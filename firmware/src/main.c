@@ -13,43 +13,74 @@
 #define PAUSE_BUT_PIN_MASK (1 << PAUSE_BUT_PIN)
 
 #define BUZ_PIN_PIO PIOA
-#define BUZ_PIN 0
+#define BUZ_PIN 4
 #define BUZ_PIN_MASK (1 << BUZ_PIN)
 
-#define NOTE_B0  31
-#define NOTE_C1  33
+#define NOTE_B0 31
+#define NOTE_C1 33
 #define NOTE_CS1 35
-#define NOTE_D1  37
+#define NOTE_D1 37
 #define NOTE_DS1 39
-#define NOTE_E1  41
-#define NOTE_F1  44
+#define NOTE_E1 41
+#define NOTE_F1 44
 #define NOTE_FS1 46
-#define NOTE_G1  49
+#define NOTE_G1 49
 #define NOTE_GS1 52
-#define NOTE_A1  55
+#define NOTE_A1 55
+#define NOTE_E5 659
+#define NOTE_C5 523
+#define NOTE_G5 784
+#define NOTE_G4 392
+#define NOTE_E4 330
+#define NOTE_A4 440
+#define NOTE_B4 494
+#define NOTE_AS4 466
+#define REST 0
+
+#define TEMPO 200
 
 typedef struct {
-    uint16_t freq;
-    uint16_t time;
+    uint16_t pitch;
+    uint16_t beats;
+    uint16_t duration;
 } note;
 
 typedef struct {
-    note *notes;
+    note **notes;
     uint32_t size;
-    uint32_t tempo;
+    uint16_t tempo;
 } song;
 
-int calculateDuration(int passo, note *note) {
-    return passo * 60000 / note->time;
+note *createNote(uint16_t tempo, uint16_t pitch, uint16_t beats) {
+    note *note = malloc(sizeof(note));
+
+    note->pitch = pitch;
+    note->beats = beats;
+    note->duration = tempo * 60000 / beats;
+
+    if (note->beats < 0) {
+        note->duration *= 1.5;
+    }
+    return note;
 }
 
-void playSound(int passo, note *note) {
-    int duration = calculateDuration(passo, note) /2;
+song *createSong(note **notes, uint32_t size, uint16_t tempo) {
+    song *song = malloc(sizeof(song));
 
-    pio_set(BUZ_PIN_PIO, BUZ_PIN_MASK);
-    delay_us(duration);
-    pio_clear(BUZ_PIN_PIO, BUZ_PIN_MASK);
-    delay_us(duration);
+    song->notes = notes;
+    song->size = size;
+    song->tempo = tempo;
+
+    return song;
+}
+
+void playNextNote(note *note) {
+    for (int i = 0; i < note->duration; i++) {
+        pio_set(BUZ_PIN_PIO, BUZ_PIN_MASK);
+        delay_us(2 / note->pitch);
+        pio_clear(BUZ_PIN_PIO, BUZ_PIN_MASK);
+        delay_us(2 / note->pitch);
+    }
 }
 
 int main(void) {
@@ -66,6 +97,20 @@ int main(void) {
 
     /* Insert application code here, after the board has been initialized. */
     while (1) {
-        note _do = {16350, 1000000};
+
+        int marioNotes[] = {NOTE_E5, NOTE_E5, REST, NOTE_E5, REST, NOTE_C5, NOTE_E5, NOTE_G5, REST, NOTE_G4, REST, NOTE_C5, NOTE_G4, REST, NOTE_E4, REST, NOTE_A4, NOTE_B4, NOTE_AS4, NOTE_A4};
+        int marioBeats[] = {8, 8, 8, 8, 8, 8, 8, 4, 4, 8, 4, -4, 8, 4, -4, 4, 4, 8, 4};
+
+        note *notes[19];
+
+        for (int i = 0; i < 19; i++) {
+            note *note = createNote(TEMPO, marioNotes[i], marioBeats[i]);
+            notes[i] = note;
+        }
+        song *mario = createSong(notes, 19, TEMPO);
+
+        for (uint32_t i = 0; i < mario->size; i++) {
+            playNextNote(mario->notes[i]);
+        }
     }
 }
