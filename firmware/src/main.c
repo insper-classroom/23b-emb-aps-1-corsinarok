@@ -33,6 +33,12 @@ typedef struct {
     uint16_t time;
 } note;
 
+typedef struct {
+    note *notes;
+    uint32_t size;
+    uint32_t tempo;
+} song;
+
 int calculateDuration(int passo, note *note) {
     return passo * 60000 / note->time;
 }
