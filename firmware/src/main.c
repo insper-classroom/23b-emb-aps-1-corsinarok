@@ -1,8 +1,11 @@
 #include <asf.h>
 
-#include "gfx_mono_ug_2832hsweg04.h"
 #include "gfx_mono_text.h"
+#include "gfx_mono_ug_2832hsweg04.h"
 #include "sysfont.h"
+
+#include "music.h"
+#include "pitches.h"
 
 #define START_BUT_PIO PIOA
 #define START_BUT_PIN 0
@@ -16,110 +19,50 @@
 #define BUZ_PIN 3
 #define BUZ_PIN_MASK (1 << BUZ_PIN)
 
-#define NOTE_B0 31
-#define NOTE_C1 33
-#define NOTE_CS1 35
-#define NOTE_D1 37
-#define NOTE_DS1 39
-#define NOTE_E1 41
-#define NOTE_F1 44
-#define NOTE_FS1 46
-#define NOTE_G1 49
-#define NOTE_GS1 52
-#define NOTE_A1 55
-#define NOTE_E5 659
-#define NOTE_C5 523
-#define NOTE_G5 784
-#define NOTE_G4 392
-#define NOTE_E4 330
-#define NOTE_A4 440
-#define NOTE_B4 494
-#define NOTE_AS4 466
-#define REST 0
+#define TIME 200
 
-#define TEMPO 200
+void tone(note *note, Pio *pio, const uint32_t ul_mask) {
+    int period = 1000000 / note->pitch;
+    int pulse = period / 2;
 
-typedef struct {
-	uint16_t pitch;
-	uint16_t beats;
-	uint16_t duration;
-} note;
-
-typedef struct {
-	note **notes;
-	uint32_t size;
-	uint16_t tempo;
-} song;
-
-note *createNote(uint16_t tempo, uint16_t pitch, uint16_t beats) {
-	note *note = malloc(sizeof(note));
-
-	note->pitch = pitch;
-	note->beats = beats;
-	note->duration = tempo * 60000 / beats;
-
-	if (note->beats < 0) {
-		note->duration *= 1.5;
-	}
-	return note;
+    for (int i = 0; i < note->duration; i++) {
+        pio_set(pio, ul_mask);
+        delay_us(pulse);
+        pio_clear(pio, ul_mask);
+        delay_us(pulse);
+    }
 }
 
-song *createSong(note **notes, uint32_t size, uint16_t tempo) {
-	song *song = malloc(sizeof(song));
+int main(void) {
+    board_init();
+    sysclk_init();
+    delay_init();
 
-	song->notes = notes;
-	song->size = size;
-	song->tempo = tempo;
+    // Disativa WatchDog Timer
+    WDT->WDT_MR = WDT_MR_WDDIS;
 
-	return song;
-}
+    // Habilida clock do periferico PIO
+    pmc_enable_periph_clk(BUZ_PIN_PIO);
 
-void playNextNote(note *note) {
-	for (int i = 0; i < note->duration; i++) {
-		pio_set(BUZ_PIN_PIO, BUZ_PIN_MASK);
-		delay_us(2 / note->pitch);
-		pio_clear(BUZ_PIN_PIO, BUZ_PIN_MASK);
-		delay_us(2 / note->pitch);
-	}
-}
+    // Inicializa Buzzer como saida
+    pio_set_output(BUZ_PIN_PIO, BUZ_PIN_MASK, 0, 0, 0);
 
-int main (void)
-{
-	board_init();
-	sysclk_init();
-	delay_init();
+    // Init OLED
+    gfx_mono_ssd1306_init();
 
-	// Disativa WatchDog Timer
-	WDT->WDT_MR = WDT_MR_WDDIS;
-	
-	// Habilida clock do periferico PIO 
-	pmc_enable_periph_clk(BUZ_PIN_PIO);
+    gfx_mono_draw_filled_circle(20, 16, 16, GFX_PIXEL_SET, GFX_WHOLE);
+    gfx_mono_draw_string("mundo", 50, 16, &sysfont);
 
-	// Inicializa Buzzer como saida
-	pio_set_output(BUZ_PIN_PIO, BUZ_PIN_MASK, 0, 0, 0);
-	
-	// Init OLED
-	gfx_mono_ssd1306_init();
-	
-	gfx_mono_draw_filled_circle(20, 16, 16, GFX_PIXEL_SET, GFX_WHOLE);
-	gfx_mono_draw_string("mundo", 50,16, &sysfont);
+    /* Insert application code here, after the board has been initialized. */
+    while (1) {
 
-  /* Insert application code here, after the board has been initialized. */
-	while(1) {
+        int marioNotes[] = {NOTE_E5, NOTE_E5, REST, NOTE_E5, REST, NOTE_C5, NOTE_E5, NOTE_G5, REST, NOTE_G4, REST, NOTE_C5, NOTE_G4, REST, NOTE_E4, REST, NOTE_A4, NOTE_B4, NOTE_AS4, NOTE_A4};
+        int marioBeats[] = {8, 8, 8, 8, 8, 8, 8, 4, 4, 8, 4, -4, 8, 4, -4, 4, 4, 8, 4};
 
-		int marioNotes[] = {NOTE_E5, NOTE_E5, REST, NOTE_E5, REST, NOTE_C5, NOTE_E5, NOTE_G5, REST, NOTE_G4, REST, NOTE_C5, NOTE_G4, REST, NOTE_E4, REST, NOTE_A4, NOTE_B4, NOTE_AS4, NOTE_A4};
-		int marioBeats[] = {8, 8, 8, 8, 8, 8, 8, 4, 4, 8, 4, -4, 8, 4, -4, 4, 4, 8, 4};
+        song *mario = createSong(marioNotes, marioBeats, 19, TIME);
 
-		note *notes[19];
-
-		for (int i = 0; i < 19; i++) {
-			note *note = createNote(TEMPO, marioNotes[i], marioBeats[i]);
-			notes[i] = note;
-		}
-		song *mario = createSong(notes, 19, TEMPO);
-
-		for (uint32_t i = 0; i < mario->size; i++) {
-			playNextNote(mario->notes[i]);
-		}		
-	}
+        for (int i = 0; i < mario->size; i++) {
+            playNextNote(mario->notes[i], BUZ_PIN_PIO, BUZ_PIN_MASK);
+        }
+    }
 }
