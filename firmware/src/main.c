@@ -1,7 +1,7 @@
 #include <asf.h>
 
-#include "gfx_mono_text.h"
 #include "gfx_mono_ug_2832hsweg04.h"
+#include "gfx_mono_text.h"
 #include "sysfont.h"
 
 #include "music.h"
@@ -19,7 +19,7 @@
 #define BUZ_PIN 3
 #define BUZ_PIN_MASK (1 << BUZ_PIN)
 
-#define TIME 200
+#define TEMPO 200
 
 void tone(note *note, Pio *pio, const uint32_t ul_mask) {
     int period = 1000000 / note->pitch;
@@ -59,10 +59,10 @@ int main(void) {
         int marioNotes[] = {NOTE_E5, NOTE_E5, REST, NOTE_E5, REST, NOTE_C5, NOTE_E5, NOTE_G5, REST, NOTE_G4, REST, NOTE_C5, NOTE_G4, REST, NOTE_E4, REST, NOTE_A4, NOTE_B4, NOTE_AS4, NOTE_A4};
         int marioBeats[] = {8, 8, 8, 8, 8, 8, 8, 4, 4, 8, 4, -4, 8, 4, -4, 4, 4, 8, 4};
 
-        song *mario = createSong(marioNotes, marioBeats, 19, TIME);
+        song *mario = createSong(marioNotes, marioBeats, 19, TEMPO);
 
         for (int i = 0; i < mario->size; i++) {
-            playNextNote(mario->notes[i], BUZ_PIN_PIO, BUZ_PIN_MASK);
+            tone(mario->notes[i], BUZ_PIN_PIO, BUZ_PIN_MASK);
         }
     }
 }

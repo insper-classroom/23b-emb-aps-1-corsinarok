@@ -35,12 +35,12 @@ typedef struct {
 typedef struct {
     note **notes;
     int size;
-    unsigned long duration;
+    unsigned long tempo;
 } song;
 
 note* createNote(unsigned short pitch, unsigned char beat, unsigned long song_duration);
 
-song* createSong(unsigned short *pitches, unsigned char *beats, int size, unsigned long duration);
+song* createSong(unsigned short *pitches, unsigned char *beats, int size, unsigned long tempo);
 
 void tone(note *note, Pio *pio, const uint32_t ul_mask);
 
