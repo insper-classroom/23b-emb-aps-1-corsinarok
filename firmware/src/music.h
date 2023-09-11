@@ -10,6 +10,8 @@
 
 #ifndef MUSIC_H
 
+#include "pio.h"
+
 /************************************************************************/
 /* defines                                                              */
 /************************************************************************/
@@ -42,6 +44,6 @@ note* createNote(unsigned short pitch, unsigned char beat, unsigned long song_du
 
 song* createSong(unsigned short *pitches, unsigned char *beats, int size, unsigned long tempo);
 
-void tone(note *note, Pio *pio, const uint32_t ul_mask);
+void tone(note *note, Pio *pio, const unsigned int ul_mask);
 
 #endif

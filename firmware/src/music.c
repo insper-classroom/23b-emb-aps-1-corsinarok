@@ -1,4 +1,5 @@
 #include "music.h"
+#include "stdlib.h"
 
 note *createNote(unsigned short pitch, unsigned char beats, unsigned long bpm) {
     note *note = malloc(sizeof(note));

@@ -564,10 +564,19 @@
     <Compile Include="src\ASF\sam\drivers\tc\tc.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\pitches.h">
+      <SubType>compile</SubType>
+    </Compile>
     <None Include="src\ASF\sam\drivers\tc\tc.h">
       <SubType>compile</SubType>
     </None>
     <Compile Include="src\config\conf_sysfont.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\music.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\music.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\oled\gfx_mono.h">

@@ -21,7 +21,7 @@
 
 #define TEMPO 200
 
-void tone(note *note, Pio *pio, const uint32_t ul_mask) {
+void tone(note *note, Pio *pio, const unsigned int ul_mask) {
     int period = 1000000 / note->pitch;
     int pulse = period / 2;
 
@@ -33,36 +33,36 @@ void tone(note *note, Pio *pio, const uint32_t ul_mask) {
     }
 }
 
-int main(void) {
-    board_init();
-    sysclk_init();
-    delay_init();
+int main (void)
+{
+	board_init();
+	sysclk_init();
+	delay_init();
 
-    // Disativa WatchDog Timer
+	// Disativa WatchDog Timer
     WDT->WDT_MR = WDT_MR_WDDIS;
 
-    // Habilida clock do periferico PIO
+	// Habilida clock do periferico PIO
     pmc_enable_periph_clk(BUZ_PIN_PIO);
 
-    // Inicializa Buzzer como saida
+	// Inicializa Buzzer como saida
     pio_set_output(BUZ_PIN_PIO, BUZ_PIN_MASK, 0, 0, 0);
+	
+	// Init OLED
+	gfx_mono_ssd1306_init();
 
-    // Init OLED
-    gfx_mono_ssd1306_init();
+	gfx_mono_draw_string("teste", 50, 16, &sysfont);
 
-    gfx_mono_draw_filled_circle(20, 16, 16, GFX_PIXEL_SET, GFX_WHOLE);
-    gfx_mono_draw_string("mundo", 50, 16, &sysfont);
+  /* Insert application code here, after the board has been initialized. */
+	while(1) {
 
-    /* Insert application code here, after the board has been initialized. */
-    while (1) {
-
-        int marioNotes[] = {NOTE_E5, NOTE_E5, REST, NOTE_E5, REST, NOTE_C5, NOTE_E5, NOTE_G5, REST, NOTE_G4, REST, NOTE_C5, NOTE_G4, REST, NOTE_E4, REST, NOTE_A4, NOTE_B4, NOTE_AS4, NOTE_A4};
+		int marioNotes[] = {NOTE_E5, NOTE_E5, REST, NOTE_E5, REST, NOTE_C5, NOTE_E5, NOTE_G5, REST, NOTE_G4, REST, NOTE_C5, NOTE_G4, REST, NOTE_E4, REST, NOTE_A4, NOTE_B4, NOTE_AS4, NOTE_A4};
         int marioBeats[] = {8, 8, 8, 8, 8, 8, 8, 4, 4, 8, 4, -4, 8, 4, -4, 4, 4, 8, 4};
 
         song *mario = createSong(marioNotes, marioBeats, 19, TEMPO);
 
         for (int i = 0; i < mario->size; i++) {
             tone(mario->notes[i], BUZ_PIN_PIO, BUZ_PIN_MASK);
-        }
-    }
+        }		
+	}
 }
