@@ -68,6 +68,9 @@ int main (void)
         int marioBeats[] = {8, 8, 8, 8, 8, 8, 8, 4, 4, 8, 4, -4, 8, 4, -4, 4, 4, 8, 4};
 
         song *mario = createSong(marioNotes, marioBeats, 19, TEMPO);
+        if (mario == NULL) {
+            return 1;
+        }
 
         for (int i = 0; i < mario->size; i++) {
             tone(mario->notes[i], BUZ_PIN_PIO, BUZ_PIN_MASK);

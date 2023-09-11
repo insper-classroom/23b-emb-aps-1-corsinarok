@@ -1,7 +1,7 @@
 #include "music.h"
 #include "stdlib.h"
 
-note *createNote(unsigned short pitch, unsigned char beats, unsigned long bpm) {
+note *createNote(unsigned short pitch, char beats, unsigned long bpm) {
     if (bpm <= 0) {
         // Use serial comunications to print error (invalid parameters)
         return NULL;
@@ -23,7 +23,7 @@ note *createNote(unsigned short pitch, unsigned char beats, unsigned long bpm) {
     return newNote;
 }
 
-song *createSong(unsigned short *pitches, unsigned char *beats, int size, unsigned long tempo) {
+song *createSong(unsigned short pitches[], char beats[], int size, unsigned long tempo) {
     if (size <= 0 || tempo <= 0) {
         // Use serial comunications to print error (invalid parameters)
         return NULL;
@@ -41,10 +41,6 @@ song *createSong(unsigned short *pitches, unsigned char *beats, int size, unsign
         // Use serial comunications to print error (malloc failed)
         free(newSong);
         return NULL;
-    }
-
-    for (int i = 0; i < size; i++) {
-        notes[i] = createNote(pitches[i], beats[i], tempo);
     }
 
     for (int i = 0; i < size; i++) {
