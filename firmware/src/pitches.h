@@ -1,19 +1,10 @@
 /**
- * @file    pitches.h
+ * @file pitches.h
  * 
- * @brief   This file contains the pitches for the notes
- */
-
-/************************************************************************/
-/* includes                                                             */
-/************************************************************************/
+ * @brief This file contains the pitches for the notes
+*/
 
 #ifndef PITCHES_H
-
-/************************************************************************/
-/* defines                                                              */
-/************************************************************************/
-
 #define PITCHES_H
 
 #define REST 0

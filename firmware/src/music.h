@@ -2,7 +2,7 @@
  * @file music.h 
  * 
  * @brief Arquivo com as definições das notas musicais e musicas
- */
+*/
 
 #ifndef MUSIC_H
 #define MUSIC_H
@@ -16,7 +16,7 @@
 
 typedef struct {
     unsigned short pitch; 
-    unsigned long duration;
+    long duration;
 } note;
 
 typedef struct {

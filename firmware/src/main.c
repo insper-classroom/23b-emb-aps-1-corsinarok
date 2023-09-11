@@ -23,10 +23,15 @@
 #define TEMPO 200
 
 void tone(note *note, Pio *pio, const unsigned int ul_mask) {
+    if (note->pitch == 0) {
+        delay_ms(note->duration);
+        return;
+    }
     int period = 1000000 / note->pitch;
     int pulse = period / 2;
+    int repetitions = note->pitch * note->duration / 1000;
 
-    for (int i = 0; i < note->duration; i++) {
+    for (int i = 0; i < repetitions; i++) {
         pio_set(pio, ul_mask);
         delay_us(pulse);
         pio_clear(pio, ul_mask);
@@ -53,6 +58,8 @@ int main (void)
 	gfx_mono_ssd1306_init();
 
 	gfx_mono_draw_string("teste", 50, 16, &sysfont);
+
+	
 
   /* Insert application code here, after the board has been initialized. */
 	while(1) {
