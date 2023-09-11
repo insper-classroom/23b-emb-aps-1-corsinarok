@@ -6,6 +6,7 @@
 
 #include "music.h"
 #include "pitches.h"
+#include "pio.h"
 
 #define START_BUT_PIO PIOA
 #define START_BUT_PIN 0

@@ -10,8 +10,6 @@
 
 #ifndef MUSIC_H
 
-#include "pio.h"
-
 /************************************************************************/
 /* defines                                                              */
 /************************************************************************/
@@ -43,7 +41,5 @@ typedef struct {
 note* createNote(unsigned short pitch, unsigned char beat, unsigned long song_duration);
 
 song* createSong(unsigned short *pitches, unsigned char *beats, int size, unsigned long tempo);
-
-void tone(note *note, Pio *pio, const unsigned int ul_mask);
 
 #endif
