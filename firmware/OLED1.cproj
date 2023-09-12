@@ -563,6 +563,12 @@
     <Compile Include="src\ASF\sam\drivers\tc\tc.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\buzzer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\buzzer.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\pitches.h">
       <SubType>compile</SubType>
     </Compile>

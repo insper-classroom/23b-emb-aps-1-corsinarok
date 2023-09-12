@@ -12,7 +12,7 @@
  * 
  * @param pitch Frequencia da nota
  * @param duration Duração da nota
- */
+*/
 
 typedef struct {
     unsigned short pitch; 

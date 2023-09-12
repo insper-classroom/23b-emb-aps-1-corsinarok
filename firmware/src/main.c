@@ -7,6 +7,7 @@
 #include "music.h"
 #include "pitches.h"
 #include "pio.h"
+#include "buzzer.h"
 
 #define START_BUT_PIO PIOA
 #define START_BUT_PIN 0
@@ -16,19 +17,7 @@
 #define PAUSE_BUT_PIN 0
 #define PAUSE_BUT_PIN_MASK (1 << PAUSE_BUT_PIN)
 
-#define BUZ_PIN_PIO PIOA
-#define BUZ_PIN 3
-#define BUZ_PIN_MASK (1 << BUZ_PIN)
-
 #define TEMPO 200
-
-void set_buzzer() {
-    pio_set(BUZ_PIN_PIO, BUZ_PIN_MASK);
-}
-
-void clear_buzzer() {
-    pio_clear(BUZ_PIN_PIO, BUZ_PIN_MASK);
-}
 
 void tone(note *note) {
     if (note->pitch == 0) {
