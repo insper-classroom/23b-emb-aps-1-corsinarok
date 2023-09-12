@@ -16,9 +16,9 @@ TODO: Aualizar pinos
 
 | Função  | PINO (ex: PA11) |
 |---------|-----------------|
-| BUZZER  |                 |
-| START   |                 |
-| SELEÇÃO |                 |
+| BUZZER  |       PA4       |
+| PAUSE   |  EXT4 --> PA19  |
+| SELEÇÃO |  EXT9 --> PD28  |
 
 ### Imagem da montagem
 
@@ -30,4 +30,4 @@ TODO: Inserir link para vídeo do projeto funcionando
 
 ### Músicas e Direitos autorais
 
-TODO: Listar músicas e dar crédio da onde saiu:
+- [Super Mario Bros theme by Koji Kondo](https://musescore.com/user/2123/scores/2145)

@@ -13,12 +13,13 @@
  * @brief This file contains the buzzer constants and functions prototypes.
 */
 
-#define BUZ_PIN_PIO PIOA
-#define BUZ_PIN 3
-#define BUZ_PIN_MASK (1 << BUZ_PIN)
+#define BUZ_PIO       PIOA
+#define BUZ_PIO_ID    ID_PIOA
+#define BUZ_PIN       3
+#define BUZ_PIN_MASK  (1 << BUZ_PIN)
 
-void set_buzzer();
-
-void clear_buzzer();
+void init_buzzer(void);
+void set_buzzer(void);
+void clear_buzzer(void);
 
 #endif

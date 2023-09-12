@@ -21,13 +21,14 @@ typedef struct {
 
 typedef struct {
     note **notes;
+    char *name;
     int size;
-    unsigned long tempo;
+    unsigned long duration;
 } song;
 
 note* createNote(unsigned short pitch, char beat, unsigned long song_duration);
 
-song* createSong(unsigned short pitches[], char beats[], int size, unsigned long tempo);
+song* createSong(unsigned short pitches[], char beats[], int size, unsigned long duration);
 
 void tone(note *note);
 

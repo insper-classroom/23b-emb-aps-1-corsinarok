@@ -4,24 +4,22 @@
 #include "gfx_mono_text.h"
 #include "sysfont.h"
 
-#include "but.h"
+#include "led.h"
 #include "buzzer.h"
+#include "buttons.h"
 #include "music.h"
-#include "pio.h"
 #include "pitches.h"
 
 #define TEMPO 200
 
-void ioinit() {
-    // Habilida clock do periferico PIO
-    pmc_enable_periph_clk(BUZ_PIN_PIO);
+void init(void);
 
-    // Inicializa Buzzer como saida
-    pio_set_output(BUZ_PIN_PIO, BUZ_PIN_MASK, 0, 0, 0);
-
-    // Init OLED
+void init(void) {
+	init_led();
+	init_buzzer();
+	init_pause_but();
+	init_selection_but();
     gfx_mono_ssd1306_init();
-    gfx_mono_draw_string("teste", 50, 16, &sysfont);
 }
 
 int main(void) {
@@ -32,8 +30,10 @@ int main(void) {
     // Disativa WatchDog Timer
     WDT->WDT_MR = WDT_MR_WDDIS;
 
-    // Inicializa IO
-    ioinit();
+    // Inicializa os IOs
+    init();
+	
+	gfx_mono_draw_string("teste", 50, 16, &sysfont);
 
     /* Insert application code here, after the board has been initialized. */
     while (1) {

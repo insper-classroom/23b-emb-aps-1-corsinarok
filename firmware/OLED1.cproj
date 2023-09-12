@@ -239,10 +239,10 @@
         <board id="board.same70_xplained" value="Add" config="" content-id="Atmel.ASF" />
       </framework-data>
     </AsfFrameworkConfig>
-    <avrtool>
-    </avrtool>
-    <avrtoolserialnumber>ATML2637010000000000</avrtoolserialnumber>
-    <avrdeviceexpectedsignature>0xA1020E00</avrdeviceexpectedsignature>
+    <avrtool>custom</avrtool>
+    <avrtoolserialnumber>
+    </avrtoolserialnumber>
+    <avrdeviceexpectedsignature>0xA1020E01</avrdeviceexpectedsignature>
     <avrtoolinterface>SWD</avrtoolinterface>
     <com_atmel_avrdbg_tool_edbg>
       <ToolOptions>
@@ -256,6 +256,17 @@
       <ToolName>EDBG</ToolName>
     </com_atmel_avrdbg_tool_edbg>
     <avrtoolinterfaceclock>2000000</avrtoolinterfaceclock>
+    <custom>
+      <ToolOptions xmlns="">
+        <InterfaceProperties>
+        </InterfaceProperties>
+        <InterfaceName>SWD</InterfaceName>
+      </ToolOptions>
+      <ToolType xmlns="">custom</ToolType>
+      <ToolNumber xmlns="">
+      </ToolNumber>
+      <ToolName xmlns="">Custom Programming Tool</ToolName>
+    </custom>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -554,6 +565,7 @@
     <Folder Include="src\ASF\thirdparty\CMSIS\Lib\" />
     <Folder Include="src\ASF\thirdparty\CMSIS\Lib\GCC\" />
     <Folder Include="src\config\" />
+    <Folder Include="src\music" />
     <Folder Include="src\oled" />
   </ItemGroup>
   <ItemGroup>
@@ -563,13 +575,28 @@
     <Compile Include="src\ASF\sam\drivers\tc\tc.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\but.h">
+    <Compile Include="src\buttons.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\buttons.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\buzzer.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\buzzer.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\led.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\led.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\music\mario.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\music\mario1.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\pitches.h">

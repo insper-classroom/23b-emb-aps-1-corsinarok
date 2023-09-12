@@ -1,5 +1,7 @@
 #include "music.h"
+#include "buzzer.h"
 #include "stdlib.h"
+#include "delay.h"
 
 note *createNote(unsigned short pitch, char beats, unsigned long bpm) {
     if (bpm <= 0) {
@@ -21,13 +23,13 @@ note *createNote(unsigned short pitch, char beats, unsigned long bpm) {
     return newNote;
 }
 
-song *createSong(unsigned short pitches[], char beats[], int size, unsigned long tempo) {
-    if (size <= 0 || tempo <= 0) {
+song *createSong(unsigned short pitches[], char beats[], int size, unsigned long duration) {
+    if (size <= 0 || duration <= 0) {
         // Use serial comunications to print error (invalid parameters)
         return NULL;
     }
     song *newSong = malloc(sizeof(song));
-    
+
     if (newSong == NULL) {
         // Use serial comunications to print error (malloc failed)
         return NULL;
@@ -40,8 +42,8 @@ song *createSong(unsigned short pitches[], char beats[], int size, unsigned long
         return NULL;
     }
     for (int i = 0; i < size; i++) {
-        notes[i] = createNote(pitches[i], beats[i], tempo);
-        
+        notes[i] = createNote(pitches[i], beats[i], duration);
+
         // Use serial comunications to print error (malloc failed)
         if (notes[i] == NULL) {
             for (int j = 0; j < i; j++) {
@@ -54,19 +56,18 @@ song *createSong(unsigned short pitches[], char beats[], int size, unsigned long
     }
     newSong->notes = notes;
     newSong->size = size;
-    newSong->tempo = tempo;
+    newSong->duration = duration;
 
     return newSong;
 }
 
-void tone(note *note) {
-    if (note->pitch == 0) {
-        delay_ms(note->duration);
+void tone(note* note_to_play) {
+    if (note_to_play->pitch == 0) {
+        delay_ms(note_to_play->duration);
         return;
     }
-    int period = 1000000 / note->pitch;
-    int pulse = period / 2;
-    int repetitions = note->pitch * note->duration / 1000;
+    int pulse = 1000000 / (2 * note_to_play->pitch);
+    int repetitions = note_to_play->pitch * note_to_play->duration / 1000;
 
     for (int i = 0; i < repetitions; i++) {
         set_buzzer();
