@@ -8,14 +8,7 @@
 #include "pitches.h"
 #include "pio.h"
 #include "buzzer.h"
-
-#define START_BUT_PIO PIOA
-#define START_BUT_PIN 0
-#define START_BUT_PIN_MASK (1 << START_BUT_PIN)
-
-#define PAUSE_BUT_PIO PIOA
-#define PAUSE_BUT_PIN 0
-#define PAUSE_BUT_PIN_MASK (1 << PAUSE_BUT_PIN)
+#include "but.h"
 
 #define TEMPO 200
 
@@ -39,9 +32,17 @@ void tone(note *note) {
 void ioinit() {
     // Habilida clock do periferico PIO
     pmc_enable_periph_clk(BUZ_PIN_PIO);
+    pmc_enable_periph_clk(START_BUT_PIO);
+    pmc_enable_periph_clk(PAUSE_BUT_PIO);
 
 	// Inicializa Buzzer como saida
     pio_set_output(BUZ_PIN_PIO, BUZ_PIN_MASK, 0, 0, 0);
+
+    // Inicializa botao de start
+    pio_set_input(START_BUT_PIO, START_BUT_PIN_MASK, PIO_PULLUP | PIO_DEBOUNCE);
+
+    // Inicializa botao de pause
+    pio_set_input(PAUSE_BUT_PIO, PAUSE_BUT_PIN_MASK, PIO_PULLUP | PIO_DEBOUNCE);
 	
 	// Init OLED
 	gfx_mono_ssd1306_init();
