@@ -22,7 +22,15 @@
 
 #define TEMPO 200
 
-void tone(note *note, Pio *pio, const unsigned int ul_mask) {
+void set_buzzer() {
+    pio_set(BUZ_PIN_PIO, BUZ_PIN_MASK);
+}
+
+void clear_buzzer() {
+    pio_clear(BUZ_PIN_PIO, BUZ_PIN_MASK);
+}
+
+void tone(note *note) {
     if (note->pitch == 0) {
         delay_ms(note->duration);
         return;
@@ -32,11 +40,23 @@ void tone(note *note, Pio *pio, const unsigned int ul_mask) {
     int repetitions = note->pitch * note->duration / 1000;
 
     for (int i = 0; i < repetitions; i++) {
-        pio_set(pio, ul_mask);
+        set_buzzer();
         delay_us(pulse);
-        pio_clear(pio, ul_mask);
+        clear_buzzer();
         delay_us(pulse);
     }
+}
+
+void ioinit() {
+    // Habilida clock do periferico PIO
+    pmc_enable_periph_clk(BUZ_PIN_PIO);
+
+	// Inicializa Buzzer como saida
+    pio_set_output(BUZ_PIN_PIO, BUZ_PIN_MASK, 0, 0, 0);
+	
+	// Init OLED
+	gfx_mono_ssd1306_init();
+	gfx_mono_draw_string("teste", 50, 16, &sysfont);
 }
 
 int main (void)
@@ -48,18 +68,8 @@ int main (void)
 	// Disativa WatchDog Timer
     WDT->WDT_MR = WDT_MR_WDDIS;
 
-	// Habilida clock do periferico PIO
-    pmc_enable_periph_clk(BUZ_PIN_PIO);
-
-	// Inicializa Buzzer como saida
-    pio_set_output(BUZ_PIN_PIO, BUZ_PIN_MASK, 0, 0, 0);
-	
-	// Init OLED
-	gfx_mono_ssd1306_init();
-
-	gfx_mono_draw_string("teste", 50, 16, &sysfont);
-
-	
+    // Inicializa IO
+	ioinit();
 
   /* Insert application code here, after the board has been initialized. */
 	while(1) {
@@ -73,7 +83,7 @@ int main (void)
         }
 
         for (int i = 0; i < mario->size; i++) {
-            tone(mario->notes[i], BUZ_PIN_PIO, BUZ_PIN_MASK);
+            tone(mario->notes[i]);
         }		
 	}
 }
