@@ -27,6 +27,8 @@ typedef struct {
 
 note* createNote(unsigned short pitch, char beat, unsigned long song_duration);
 
-song* createSong(unsigned short *pitches, char *beats, int size, unsigned long tempo);
+song* createSong(unsigned short pitches[], char beats[], int size, unsigned long tempo);
+
+void tone(note *note);
 
 #endif

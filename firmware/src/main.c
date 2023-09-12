@@ -4,76 +4,50 @@
 #include "gfx_mono_text.h"
 #include "sysfont.h"
 
-#include "music.h"
-#include "pitches.h"
-#include "pio.h"
-#include "buzzer.h"
 #include "but.h"
+#include "buzzer.h"
+#include "music.h"
+#include "pio.h"
+#include "pitches.h"
 
 #define TEMPO 200
-
-void tone(note *note) {
-    if (note->pitch == 0) {
-        delay_ms(note->duration);
-        return;
-    }
-    int period = 1000000 / note->pitch;
-    int pulse = period / 2;
-    int repetitions = note->pitch * note->duration / 1000;
-
-    for (int i = 0; i < repetitions; i++) {
-        set_buzzer();
-        delay_us(pulse);
-        clear_buzzer();
-        delay_us(pulse);
-    }
-}
 
 void ioinit() {
     // Habilida clock do periferico PIO
     pmc_enable_periph_clk(BUZ_PIN_PIO);
-    pmc_enable_periph_clk(START_BUT_PIO);
-    pmc_enable_periph_clk(PAUSE_BUT_PIO);
 
-	// Inicializa Buzzer como saida
+    // Inicializa Buzzer como saida
     pio_set_output(BUZ_PIN_PIO, BUZ_PIN_MASK, 0, 0, 0);
 
-    // Inicializa botao de start
-    pio_set_input(START_BUT_PIO, START_BUT_PIN_MASK, PIO_PULLUP | PIO_DEBOUNCE);
-
-    // Inicializa botao de pause
-    pio_set_input(PAUSE_BUT_PIO, PAUSE_BUT_PIN_MASK, PIO_PULLUP | PIO_DEBOUNCE);
-	
-	// Init OLED
-	gfx_mono_ssd1306_init();
-	gfx_mono_draw_string("teste", 50, 16, &sysfont);
+    // Init OLED
+    gfx_mono_ssd1306_init();
+    gfx_mono_draw_string("teste", 50, 16, &sysfont);
 }
 
-int main (void)
-{
-	board_init();
-	sysclk_init();
-	delay_init();
+int main(void) {
+    board_init();
+    sysclk_init();
+    delay_init();
 
-	// Disativa WatchDog Timer
+    // Disativa WatchDog Timer
     WDT->WDT_MR = WDT_MR_WDDIS;
 
     // Inicializa IO
-	ioinit();
+    ioinit();
 
-  /* Insert application code here, after the board has been initialized. */
-	while(1) {
+    /* Insert application code here, after the board has been initialized. */
+    while (1) {
 
-		unsigned short marioNotes[] = {NOTE_E5, NOTE_E5, REST, NOTE_E5, REST, NOTE_C5, NOTE_E5, NOTE_G5, REST, NOTE_G4, REST, NOTE_C5, NOTE_G4, REST, NOTE_E4, NOTE_A4, NOTE_B4, NOTE_AS4, NOTE_A4};
+        unsigned short marioNotes[] = {NOTE_E5, NOTE_E5, REST, NOTE_E5, REST, NOTE_C5, NOTE_E5, NOTE_G5, REST, NOTE_G4, REST, NOTE_C5, NOTE_G4, REST, NOTE_E4, NOTE_A4, NOTE_B4, NOTE_AS4, NOTE_A4};
         char marioBeats[] = {8, 8, 8, 8, 8, 8, 8, 4, 4, 8, 4, -4, 8, 4, -4, 4, 4, 8, 4};
 
         song *mario = createSong(marioNotes, marioBeats, 19, TEMPO);
+
         if (mario == NULL) {
             return 1;
         }
-
         for (int i = 0; i < mario->size; i++) {
             tone(mario->notes[i]);
-        }		
-	}
+        }
+    }
 }
