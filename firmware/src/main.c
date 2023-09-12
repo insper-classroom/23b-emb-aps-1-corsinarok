@@ -9,6 +9,7 @@
 #include "buttons.h"
 #include "music.h"
 #include "pitches.h"
+#include "init.h"
 
 #define TEMPO 200
 
