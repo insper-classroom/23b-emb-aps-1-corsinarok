@@ -572,6 +572,12 @@
     <Compile Include="src\buzzer.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\init.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\init.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\pitches.h">
       <SubType>compile</SubType>
     </Compile>

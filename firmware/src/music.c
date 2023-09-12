@@ -1,5 +1,7 @@
 #include "music.h"
 #include "stdlib.h"
+#include "buzzer.h"
+#include <asf.h>
 
 note *createNote(unsigned short pitch, char beats, unsigned long bpm) {
     if (bpm <= 0) {
