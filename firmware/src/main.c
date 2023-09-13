@@ -1,9 +1,5 @@
 #include <asf.h>
 
-#include "gfx_mono_ug_2832hsweg04.h"
-#include "gfx_mono_text.h"
-#include "sysfont.h"
-
 #include "led.h"
 #include "buzzer.h"
 #include "buttons.h"
@@ -42,8 +38,6 @@ int main(void) {
 	// Turn off led on init
 	led_off();
 	
-	gfx_mono_draw_string("teste", 50, 16, &sysfont);
-
     song *songs[3] = {get_mario_music(), get_harry_potter_music(), get_star_wars_music()};
 
     /* Insert application code here, after the board has been initialized. */
@@ -56,6 +50,11 @@ int main(void) {
         if (music == NULL) {
             return 1; // error music not found
         }
+        // Clear selection status before playing the song
+        get_selection_status();
+        
         playSong(music);
+
+        pmc_sleep(SAM_PM_SMODE_SLEEP_WFI);
 	}
 }

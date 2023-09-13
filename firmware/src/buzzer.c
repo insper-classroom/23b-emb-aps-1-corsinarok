@@ -14,6 +14,6 @@ void set_buzzer(void) {
 }
 
 void clear_buzzer(void) {
-	led_off();
 	pio_clear(BUZ_PIO, BUZ_PIN_MASK);
+    led_off();
 }
