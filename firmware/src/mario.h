@@ -10,6 +10,9 @@
 #ifndef MARIO_H
 #define MARIO_H
 
+#define TEMPO 200
+#define NAME "Mario Theme"
+
 song* get_mario_music(void);
 
 #endif

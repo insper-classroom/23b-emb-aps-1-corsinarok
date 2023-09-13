@@ -18,8 +18,6 @@
 #include "harrypotter.h"
 #include "starwars.h"
 
-#define TEMPO 200
-
 void init(void);
 
 void init(void) {

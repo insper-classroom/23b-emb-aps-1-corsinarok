@@ -1,0 +1,102 @@
+#include "pitches.h"
+#include "music.h"
+#include "mario.h"
+
+/*
+ * mario.c
+ *
+ * Created: 12/09/2023 22:36:53
+ *  Author: vacbo
+*/ 
+
+song *get_mario_music() {
+	
+	unsigned short mario_notes[] = {NOTE_E5, NOTE_E5, REST, NOTE_E5, REST, NOTE_C5, NOTE_E5, NOTE_G5, REST, NOTE_G4, REST,
+	NOTE_C5, NOTE_G4, REST, NOTE_E4, // 3
+	NOTE_A4, NOTE_B4, NOTE_AS4, NOTE_A4,
+	NOTE_G4, NOTE_E5, NOTE_G5, NOTE_A5, NOTE_F5, NOTE_G5,
+	REST, NOTE_E5,NOTE_C5, NOTE_D5, NOTE_B4,
+	NOTE_C5, NOTE_G4, REST, NOTE_E4, // repeats from 3
+	NOTE_A4, NOTE_B4, NOTE_AS4, NOTE_A4,
+	NOTE_G4, NOTE_E5, NOTE_G5, NOTE_A5, NOTE_F5, NOTE_G5,
+	REST, NOTE_E5,NOTE_C5, NOTE_D5, NOTE_B4,
+
+	
+	REST, NOTE_G5, NOTE_FS5, NOTE_F5, NOTE_DS5, NOTE_E5,//7
+	REST, NOTE_GS4, NOTE_A4, NOTE_C4, REST, NOTE_A4, NOTE_C5, NOTE_D5,
+	REST, NOTE_DS5, REST, NOTE_D5,
+	NOTE_C5, REST,
+
+	REST, NOTE_G5, NOTE_FS5, NOTE_F5, NOTE_DS5, NOTE_E5,//repeats from 7
+	REST, NOTE_GS4, NOTE_A4, NOTE_C4, REST, NOTE_A4, NOTE_C5, NOTE_D5,
+	REST, NOTE_DS5, REST, NOTE_D5,
+	NOTE_C5, REST,
+
+	NOTE_C5, NOTE_C5, NOTE_C5, REST, NOTE_C5, NOTE_D5,//11
+	NOTE_E5, NOTE_C5, NOTE_A4, NOTE_G4,
+
+	NOTE_C5, NOTE_C5, NOTE_C5, REST, NOTE_C5, NOTE_D5, NOTE_E5,//13
+	REST,
+	NOTE_C5, NOTE_C5, NOTE_C5, REST, NOTE_C5, NOTE_D5,
+	NOTE_E5, NOTE_C5, NOTE_A4, NOTE_G4,
+	NOTE_E5, NOTE_E5, REST, NOTE_E5, REST, NOTE_C5, NOTE_E5,
+	NOTE_G5, REST, NOTE_G4, REST,
+	NOTE_C5, NOTE_G4, REST, NOTE_E4, // 19
+	
+	NOTE_A4, NOTE_B4, NOTE_AS4, NOTE_A4,
+	NOTE_G4, NOTE_E5, NOTE_G5, NOTE_A5, NOTE_F5, NOTE_G5,
+	REST, NOTE_E5, NOTE_C5, NOTE_D5, NOTE_B4,
+
+	NOTE_C5, NOTE_G4, REST, NOTE_E4, // repeats from 19
+	NOTE_A4, NOTE_B4, NOTE_AS4, NOTE_A4,
+	NOTE_G4, NOTE_E5, NOTE_G5, NOTE_A5, NOTE_F5, NOTE_G5,
+	REST, NOTE_E5, NOTE_C5, NOTE_D5, NOTE_B4,
+
+	NOTE_E5, NOTE_C5, NOTE_G4, REST, NOTE_GS4,//23
+	NOTE_A4, NOTE_F5, NOTE_F5, NOTE_A4,
+	NOTE_D5, NOTE_A5, NOTE_A5, NOTE_A5, NOTE_G5, NOTE_F5,
+	
+	NOTE_E5, NOTE_C5, NOTE_A4, NOTE_G4, //26
+	NOTE_E5, NOTE_C5, NOTE_G4, REST, NOTE_GS4,
+	NOTE_A4, NOTE_F5, NOTE_F5, NOTE_A4,
+	NOTE_B4, NOTE_F5, NOTE_F5, NOTE_F5, NOTE_E5, NOTE_D5,
+	NOTE_C5, NOTE_E4, NOTE_E4, NOTE_C4,
+
+	NOTE_E5, NOTE_C5, NOTE_G4, REST, NOTE_GS4,//repeats from 23
+	NOTE_A4, NOTE_F5, NOTE_F5, NOTE_A4,
+	NOTE_D5, NOTE_A5, NOTE_A5, NOTE_A5, NOTE_G5, NOTE_F5,
+	
+	NOTE_E5, NOTE_C5, NOTE_A4, NOTE_G4, //26
+	NOTE_E5, NOTE_C5, NOTE_G4, REST, NOTE_GS4,
+	NOTE_A4, NOTE_F5, NOTE_F5, NOTE_A4,
+	NOTE_B4, NOTE_F5, NOTE_F5, NOTE_F5, NOTE_E5, NOTE_D5,
+	NOTE_C5, NOTE_E4, NOTE_E4, NOTE_C4,
+	NOTE_C5, NOTE_C5, NOTE_C5, REST, NOTE_C5, NOTE_D5, NOTE_E5,
+	REST,
+
+	NOTE_C5, NOTE_C5, NOTE_C5, REST, NOTE_C5, NOTE_D5, //33
+	NOTE_E5, NOTE_C5, NOTE_A4, NOTE_G4,
+	NOTE_E5, NOTE_E5, REST, NOTE_E5, REST, NOTE_C5, NOTE_E5,
+	NOTE_G5, REST, NOTE_G4, REST,
+	NOTE_E5, NOTE_C5, NOTE_G4, REST, NOTE_GS4,
+	NOTE_A4, NOTE_F5, NOTE_F5, NOTE_A4,
+	NOTE_D5, NOTE_A5, NOTE_A5, NOTE_A5, NOTE_G5, NOTE_F5,
+	
+	NOTE_E5, NOTE_C5, NOTE_A4, NOTE_G4, //40
+	NOTE_E5, NOTE_C5, NOTE_G4, REST, NOTE_GS4,
+	NOTE_A4, NOTE_F5, NOTE_F5, NOTE_A4,
+	NOTE_B4, NOTE_F5, NOTE_F5, NOTE_F5, NOTE_E5, NOTE_D5,
+	NOTE_C5, NOTE_E4, NOTE_E4, NOTE_C4,
+	
+	//game over sound
+	NOTE_C5, NOTE_G4, NOTE_E4, //45
+	NOTE_A4, NOTE_B4, NOTE_A4, NOTE_GS4, NOTE_AS4, NOTE_GS4,
+	NOTE_G4, NOTE_D4, NOTE_E4
+	};
+
+	char mario_beats[] = {8, 8, 8, 8, 8, 8, 8, 4, 4, 8, 4, -4, 8, 4, -4, 4, 4, 8, 4, -8, -8, -8, 4, 8, 8, 8, 4, 8, 8, -4, -4, 8, 4, -4, 4, 4, 8, 4, -8, -8, -8, 4, 8, 8, 8, 4, 8, 8, -4, 4, 8, 8, 8, 4, 8, 8, 8, 8, 8, 8, 8, 8, 8, 4, 4, 8, -4, 2, 2, 4, 8, 8, 8, 4, 8, 8, 8, 8, 8, 8, 8, 8, 8, 4, 4, 8, -4, 2, 2, 8, 4, 8, 8, 8, 4, 8, 4, 8, 2, 8, 4, 8, 8, 8, 8, 8, 1, 8, 4, 8, 8, 8, 4, 8, 4, 8, 2, 8, 8, 8, 8, 8, 8, 4, 4, 4, 4, 4, -4, 8, 4, -4, 4, 4, 8, 4, -8, -8, -8, 4, 8, 8, 8, 4, 8, 8, -4, -4, 8, 4, -4, 4, 4, 8, 4, -8, -8, -8, 4, 8, 8, 8, 4, 8, 8, -4, 8, 4, 8, 4, 4, 8, 4, 8, 2, -8, -8, -8, -8, -8, -8, 8, 4, 8, 2, 8, 4, 8, 4, 4, 8, 4, 8, 2, 8, 4, 8, -8, -8, -8, 8, 4, 8, 2, 8, 4, 8, 4, 4, 8, 4, 8, 2, -8, -8, -8, -8, -8, -8, 8, 4, 8, 2, 8, 4, 8, 4, 4, 8, 4, 8, 2, 8, 4, 8, -8, -8, -8, 8, 4, 8, 2, 8, 4, 8, 8, 8, 8, 8, 1, 8, 4, 8, 8, 8, 4, 8, 4, 8, 2, 8, 8, 8, 8, 8, 8, 4, 4, 4, 4, 4, 8, 4, 8, 4, 4, 8, 4, 8, 2, -8, -8, -8, -8, -8, -8, 8, 4, 8, 2, 8, 4, 8, 4, 4, 8, 4, 8, 2, 8, 4, 8, -8, -8, -8, 8, 4, 8, 2, -4, -4, 4, -8, -8, -8, -8, -8, -8, 8, 8, -2};
+
+	int size = sizeof(mario_notes) / sizeof(mario_notes[0]);
+
+	return createSong(NAME, mario_notes, mario_beats, size, TEMPO);
+}
