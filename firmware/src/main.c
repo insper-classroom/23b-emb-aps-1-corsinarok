@@ -1,9 +1,5 @@
 #include <asf.h>
 
-#include "gfx_mono_ug_2832hsweg04.h"
-#include "gfx_mono_text.h"
-#include "sysfont.h"
-
 #include "led.h"
 #include "buzzer.h"
 #include "buttons.h"
@@ -56,6 +52,11 @@ int main(void) {
         if (music == NULL) {
             return 1; // error music not found
         }
+        // Clear selection status before playing the song
+        get_selection_status();
+        
         playSong(music);
+
+        pmc_sleep(SAM_PM_SMODE_SLEEP_WFI);
 	}
 }

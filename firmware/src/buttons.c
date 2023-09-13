@@ -18,6 +18,7 @@
 /************************************************************************/
 
 volatile char _play_music_status = 1;
+volatile char _selection_status = 0;
 volatile int _selection_value = 0;
 
 /************************************************************************/
@@ -72,6 +73,7 @@ void _pause_but_callback(void) {
 }
 
 void _selection_but_callback(void) {
+    _selection_status = 1;
     _selection_value++;
 
     // Limite e a quantidade de musicas - 1
@@ -87,4 +89,12 @@ int play_music(void) {
 
 int get_selecao(void) {
     return _selection_value;
+}
+
+int get_selection_status(void) {
+    if (_selection_status) {
+        _selection_status = 0;
+        return 1;
+    }
+    return 0;
 }
