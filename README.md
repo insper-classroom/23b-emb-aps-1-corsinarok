@@ -25,11 +25,11 @@ Alem disso dentro do music.h se encontra as funções para criar e ultilizar os 
 
 ### Imagem da montagem
 
-TODO: Inserir imagem do sistema montado
+![WhatsApp Image 2023-09-12 at 23 57 52](https://github.com/insper-classroom/23b-emb-aps-1-corsinarok/assets/53411412/c6e4ed80-fa1b-401b-8f34-56cdb775449e)
 
 ### Vídeo do projeto
 
-TODO: Inserir link para vídeo do projeto funcionando
+https://youtu.be/U3MjCyRN1Ww
 
 ### Músicas e Direitos autorais
 
