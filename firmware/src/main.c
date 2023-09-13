@@ -33,6 +33,9 @@ int main(void) {
 	// Inicializa os IOs
 	init();
 	
+	// Turn off led on init
+	led_off();
+	
 	gfx_mono_draw_string("teste", 50, 16, &sysfont);
 
 	/* Insert application code here, after the board has been initialized. */

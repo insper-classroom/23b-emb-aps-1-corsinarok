@@ -17,7 +17,7 @@
 /* variaveis globais                                                    */
 /************************************************************************/
 
-volatile char _play_music_status = 0;
+volatile char _play_music_status = 1;
 volatile int _selection_value = 0;
 
 /************************************************************************/
