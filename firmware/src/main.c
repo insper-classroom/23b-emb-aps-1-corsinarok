@@ -37,6 +37,8 @@ int main(void) {
 	led_off();
 	
 	gfx_mono_draw_string("teste", 50, 16, &sysfont);
+	
+	song songs[] = {mario_melody()} 
 
 	/* Insert application code here, after the board has been initialized. */
 	while (1) {
@@ -47,12 +49,14 @@ int main(void) {
 		char marioBeats[] = {8, 8, 8, 8, 8, 8, 8, 4, 4, 8, 4, -4, 8, 4, -4, 4, 4, 8, 4};
 
 		song *mario = createSong(marioNotes, marioBeats, 19, TEMPO);
+		
+		song *music = songs[get_selecao()];
 
 		if (mario == NULL) {
 			return 1;
 		}
 		for (int i = 0; i < mario->size; i++) {
-			tone(mario->notes[i]);
+			tone(music->notes[i]);
 		}
 	}
 }
