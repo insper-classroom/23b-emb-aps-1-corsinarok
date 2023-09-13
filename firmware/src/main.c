@@ -38,8 +38,6 @@ int main(void) {
 	// Turn off led on init
 	led_off();
 	
-	gfx_mono_draw_string("teste", 50, 16, &sysfont);
-
     song *songs[3] = {get_mario_music(), get_harry_potter_music(), get_star_wars_music()};
 
     /* Insert application code here, after the board has been initialized. */
