@@ -1,5 +1,5 @@
-#include "gfx_mono_text.h"
 #include "gfx_mono_ug_2832hsweg04.h"
+#include "gfx_mono_text.h"
 #include "sysfont.h"
 
 #include "buttons.h"

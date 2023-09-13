@@ -575,13 +575,31 @@
     <Compile Include="src\buttons.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\harry_potter.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\harry_potter.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\led.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\led.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\mario.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\mario.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\pitches.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\star_wars.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\star_wars.h">
       <SubType>compile</SubType>
     </Compile>
     <None Include="src\ASF\sam\drivers\tc\tc.h">
