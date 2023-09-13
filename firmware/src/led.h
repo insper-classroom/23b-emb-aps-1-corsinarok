@@ -1,7 +1,7 @@
 /**
  * @file led.h
  *
- * @brief Arquivo com as definiÃ§Ãµes e declaraÃ§Ãµes das funÃ§Ãµes para o controle do LED.
+ * @brief Arquivo com as definições e declarações das funções para o controle do LED.
  */
 
 #include <asf.h>
@@ -15,7 +15,7 @@
 
 // Configuracoes do LED
 #define LED_PIO       PIOC            // periferico que controla o LED
-#define LED_PIO_ID    ID_PIOC         // ID do perifÃ©rico que controla o LED
+#define LED_PIO_ID    ID_PIOC         // ID do periférico que controla o LED
 #define LED_IDX       30              // NO EXT1 = 8
 #define LED_IDX_MASK  (1 << LED_IDX)  // Mascara para CONTROLARMOS o LED
 
