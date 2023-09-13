@@ -20,6 +20,9 @@ TODO: Aualizar pinos
 | PAUSE   |  EXT4 --> PA19  |
 | SELEÇÃO |  EXT9 --> PD28  |
 
+O software foi estruturado usando o music.h como referencia onde 2 structs foram criados, o primeiro sendo a nota e o segundo sendo a musica, dentro da musica existe um ponteiro de ponteiros onde as notas estão salvas, a duracao total da musica, a  quantidade de notas e seu nome. 
+Alem disso dentro do music.h se encontra as funções para criar e ultilizar os structs musicais. Para tocar a musica foi criado o buzzer.h que configura e contrla o buzzer para realizar a musica e para controlar e configurar os botões para mudar de musica e pausar a que está tocando foi criado buttons.h onde contem os callbacks para os botões e os getters para suas flags estão contidos. O led.h para cuidar do LED que pisca na frequencia da musica que é ultilizado pelo buzzer.h
+
 ### Imagem da montagem
 
 TODO: Inserir imagem do sistema montado
