@@ -8,12 +8,12 @@
 #include "pitches.h"
 #include "music.h"
 
-#ifndef STAR_WARS_H_
-#define STAR_WARS_H_
+#ifndef STAR_WARS_H
+#define STAR_WARS_H
 
-#define TEMPO 200
+#define TEMPO 108
 #define NAME "Imperial March"
 
 song* get_star_wars_music(void);
 
-#endif /* STAR_WARS_H_ */
+#endif /* STAR_WARS_H */

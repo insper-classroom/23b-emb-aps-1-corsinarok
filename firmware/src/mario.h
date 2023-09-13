@@ -11,7 +11,7 @@
 #define MARIO_H
 
 #define TEMPO 200
-#define NAME "Mario Theme"
+#define NAME "Super Mario Bros theme"
 
 song* get_mario_music(void);
 
