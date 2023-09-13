@@ -89,7 +89,7 @@ void playSong(song *song) {
 
     // Draw song name
     char str[128];
-    sprintf(str, "Tocando: %s", song->name);
+    sprintf(str, "%s", song->name);
     gfx_mono_draw_string(str, 0, 0, &sysfont);
 
     int update_progress = song->size / 16;
@@ -99,16 +99,14 @@ void playSong(song *song) {
         while (!play_music()) {}
 
         if (get_selection_status()) {
-            // Clear screen
-            gfx_mono_draw_filled_rect(0, 0, 128, 32, GFX_PIXEL_CLR);
             return;
         }
         if (i % update_progress == 0) {
             // Update progress bar
-            gfx_mono_draw_rect((i / update_progress) * 4, 8, 4, 8, GFX_PIXEL_SET);
+            gfx_mono_draw_rect((i / update_progress) * 4, 16, 4, 8, GFX_PIXEL_SET);
         }
         tone(song->notes[i]);
     }
     // Draw full progress bar
-    gfx_mono_draw_rect(120, 8, 4, 8, GFX_PIXEL_SET);
+    gfx_mono_draw_rect(120, 16, 4, 8, GFX_PIXEL_SET);
 }

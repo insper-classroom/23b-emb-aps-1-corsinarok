@@ -12,7 +12,7 @@
 #define HARRY_POTTER_H
 
 #define TEMPO 144
-#define NAME "Hedwig's theme"
+#define NAME "Harry Potter"
 
 song* get_harry_potter_music(void);
 

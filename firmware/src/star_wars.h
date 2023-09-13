@@ -12,7 +12,7 @@
 #define STAR_WARS_H
 
 #define TEMPO 108
-#define NAME "Imperial March"
+#define NAME "Star Wars"
 
 song* get_star_wars_music(void);
 
