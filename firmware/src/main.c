@@ -11,8 +11,8 @@
 /************************************************************************/
 
 #include "mario.h"
-#include "harrypotter.h"
-#include "starwars.h"
+#include "harry_potter.h"
+#include "star_wars.h"
 
 void init(void);
 
