@@ -31,3 +31,5 @@ TODO: Inserir link para vídeo do projeto funcionando
 ### Músicas e Direitos autorais
 
 - [Super Mario Bros theme by Koji Kondo](https://musescore.com/user/2123/scores/2145)
+- [Hedwig's theme fromn the Harry Potter Movies](https://musescore.com/user/3811306/scores/4906610)
+- [Dart Vader theme (Imperial March) - Star wars](https://musescore.com/user/202909/scores/1141521)

@@ -10,6 +10,14 @@
 #include "music.h"
 #include "pitches.h"
 
+/************************************************************************/
+/* includes musicas                                                     */
+/************************************************************************/
+
+#include "mario.h"
+#include "harrypotter.h"
+#include "starwars.h"
+
 #define TEMPO 200
 
 void init(void);
@@ -37,26 +45,19 @@ int main(void) {
 	led_off();
 	
 	gfx_mono_draw_string("teste", 50, 16, &sysfont);
-	
-	song songs[] = {mario_melody()} 
 
-	/* Insert application code here, after the board has been initialized. */
+    song *songs[3] = {get_mario_music(), get_harry_potter_music(), get_star_wars_music()};
+
+    /* Insert application code here, after the board has been initialized. */
 	while (1) {
 
 		while (!play_music()) {}
-
-		unsigned short marioNotes[] = {NOTE_E5, NOTE_E5, REST, NOTE_E5, REST, NOTE_C5, NOTE_E5, NOTE_G5, REST, NOTE_G4, REST, NOTE_C5, NOTE_G4, REST, NOTE_E4, NOTE_A4, NOTE_B4, NOTE_AS4, NOTE_A4};
-		char marioBeats[] = {8, 8, 8, 8, 8, 8, 8, 4, 4, 8, 4, -4, 8, 4, -4, 4, 4, 8, 4};
-
-		song *mario = createSong(marioNotes, marioBeats, 19, TEMPO);
 		
 		song *music = songs[get_selecao()];
 
-		if (mario == NULL) {
-			return 1;
-		}
-		for (int i = 0; i < mario->size; i++) {
-			tone(music->notes[i]);
-		}
+        if (music == NULL) {
+            return 1; // error music not found
+        }
+        playSong(music);
 	}
 }

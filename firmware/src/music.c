@@ -23,7 +23,7 @@ note *createNote(unsigned short pitch, char beats, unsigned long bpm) {
 	return newNote;
 }
 
-song *createSong(unsigned short pitches[], char beats[], int size, unsigned long duration) {
+song *createSong(char* name, unsigned short pitches[], char beats[], int size, unsigned long duration) {
 	if (size <= 0 || duration <= 0) {
 		// Use serial comunications to print error (invalid parameters)
 		return NULL;
@@ -55,6 +55,7 @@ song *createSong(unsigned short pitches[], char beats[], int size, unsigned long
 		}
 	}
 	newSong->notes = notes;
+    newSong->name = name;
 	newSong->size = size;
 	newSong->duration = duration;
 
@@ -75,4 +76,12 @@ void tone(note* note_to_play) {
 		clear_buzzer();
 		delay_us(pulse);
 	}
+}
+
+void playSong(song *song) {
+    
+
+    for (int i = 0; i < song->size; i++) {
+        tone(song->notes[i]);
+    }
 }
